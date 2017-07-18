@@ -1,0 +1,47 @@
+﻿<dxwui:NavigationPage 
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" 
+    xmlns:local="clr-namespace:DXDC"
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"  
+    xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"  
+    xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"  
+    x:Class="DXDC.GalleryView"
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="1200" x:Name="GVP">
+
+    <dxlc:DockLayoutControl Margin="10">
+        <dxnav:OfficeNavigationBar x:Name="navCategory" NavigationClient="{Binding ElementName=nav}" dxlc:DockLayoutControl.Dock="Bottom" />
+        <dxn:NavBarControl x:Name="nav" Compact="False" Width="320" MinWidth="320" dxlc:DockLayoutControl.Dock="Left" dxlc:DockLayoutControl.AllowHorizontalSizing="True">
+            <dxn:NavBarControl.View>
+                <dxn:NavigationPaneView IsExpandButtonVisible="False" IsOverflowPanelVisible="False" IsSplitterVisible="False">
+                    <dxn:NavigationPaneView.GroupHeaderTemplate>
+                        <ControlTemplate />
+                    </dxn:NavigationPaneView.GroupHeaderTemplate>
+                </dxn:NavigationPaneView>
+            </dxn:NavBarControl.View>
+            <dxn:NavBarControl.Groups>
+                <dxn:NavBarGroup x:Name="navgroupGeneral" Header="GENERAL" />
+                <dxn:NavBarGroup x:Name="navgroupArtist" Header="ARTIST" />
+                <dxn:NavBarGroup x:Name="navgroupProducer" Header="PRODUCER" />
+            </dxn:NavBarControl.Groups>
+        </dxn:NavBarControl>
+        <dxlc:DockLayoutControl dxlc:DockLayoutControl.Dock="Client"  MinWidth="600" dxlc:DockLayoutControl.AllowHorizontalSizing="True">
+            <dxb:GalleryControl x:Name="gallery_Home" Grid.Column="1" Background="Transparent">
+                <dxb:Gallery AllowFilter="False" GroupCaptionHorizontalAlignment="Stretch"
+                                  ItemGlyphLocation="Top" ItemMargin="10" ItemCaptionHorizontalAlignment="Stretch" ItemContentHorizontalAlignment="Stretch"
+                                  GroupCaptionMargin="10,0,10,0" GroupItemsMargin="10" 
+                                  AllowSmoothScrolling="True"
+                                  VerticalScrollbarVisibility="Visible"
+                                  AllowToolTips="True" AllowHoverImages="True" ItemGlyphSize="200,134" >
+                    <dxb:GalleryItemGroup />
+                </dxb:Gallery>
+            </dxb:GalleryControl>
+        </dxlc:DockLayoutControl>
+    </dxlc:DockLayoutControl>
+</dxwui:NavigationPage>

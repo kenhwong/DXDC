@@ -1,0 +1,86 @@
+﻿<dx:DXWindow xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" 
+    xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+    x:Class="DXDC.MainWindow"
+    Title="MainWindow" x:Name="ProcEle" dx:ThemeManager.ThemeName="Office2016Black" mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="1200" WindowStartupLocation="CenterScreen" >
+    <dx:DXWindow.Resources>
+        <DataTemplate x:Key="ItemHeaderTemplate">
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding FullName}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ItemContentTemplate">
+            <Grid x:Name="Grid_Content" MaxWidth="400" Background="Transparent" Margin="20,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="Black" BorderThickness="0" Margin="0">
+                        <Image Margin="1" Stretch="None" />
+                    </Border>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="City:" FontWeight="Bold" />
+                        <TextBlock Text="Birth Date:" Grid.Row="1" FontWeight="Bold"/>
+                        <TextBlock Text="Hire Date:" Grid.Row="2" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding City}" TextWrapping="Wrap" Margin="10,0" Grid.Column="1"/>
+                        <TextBlock Text="{Binding BirthDate}" TextWrapping="Wrap"  Margin="10,0" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock Text="{Binding HireDate}" TextWrapping="Wrap"  Margin="10,0" Grid.Column="1" Grid.Row="2"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="0,20,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding PageContent}" TextWrapping="Wrap" Grid.Row="0"  />
+                        <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" Grid.Row="1" Margin="0,10,0,0" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </dx:DXWindow.Resources>
+    <dxlc:DockLayoutControl Margin="12,10,10,10">
+        <dxnav:TileBar Orientation="Horizontal" x:Name="tileBar" dxlc:DockLayoutControl.Dock="Top" ShowItemShadow="True" Padding="0,0,0,15">
+            <dxnav:TileBar.ItemContainerStyle>
+                <Style TargetType="dxnav:TileBarItem">
+                    <Setter Property="Width" Value="100" />
+                    <Setter Property="Height" Value="36" />
+                    <Setter Property="Padding" Value="10,6" />
+                </Style>
+            </dxnav:TileBar.ItemContainerStyle>
+            <dxnav:TileBarItem Content="HOME VIEW" AllowGlyphTheming="False" ShowFlyoutButton="False" Size="Small" 
+                               dxwuin:Navigation.NavigateTo="GalleryView"
+                               dxwuin:Navigation.NavigationTarget="{Binding ElementName=mpFrame}"/>
+            <dxnav:TileBarItem Content="NEW MOVIE" AllowGlyphTheming="False" ShowFlyoutButton="False" Size="Small" 
+                               dxwuin:Navigation.NavigateTo="CreateNewDataView"
+                               dxwuin:Navigation.NavigationTarget="{Binding ElementName=mpFrame}"/>
+            <dxnav:TileBarItem Content="MOVIES" AllowGlyphTheming="False" ShowFlyoutButton="False" Size="Small"
+                               dxwuin:Navigation.NavigateTo="MoviesManagerView"
+                               dxwuin:Navigation.NavigationTarget="{Binding ElementName=mpFrame}"/>
+            <dxnav:TileBarItem Content="ARTISTS" AllowGlyphTheming="False" ShowFlyoutButton="False" Size="Small"/>
+            <dxnav:TileBarItem x:Name="checkProxy" Content="PROXY OFF" AllowGlyphTheming="False" ShowFlyoutButton="False" Size="Small" Click="checkProxy_Click"/>
+        </dxnav:TileBar>
+        <dxlc:DockLayoutControl dxlc:DockLayoutControl.Dock="Top" Margin="10" x:Name="panel_command" dxlc:DockLayoutControl.AllowVerticalSizing="True">
+            <dxwui:NavigationFrame x:Name="mpFrame" dxlc:DockLayoutControl.Dock="Client" Source="CreateNewDataView" AnimationType="SlideHorizontal"></dxwui:NavigationFrame>
+        </dxlc:DockLayoutControl>
+
+    </dxlc:DockLayoutControl>
+</dx:DXWindow>
