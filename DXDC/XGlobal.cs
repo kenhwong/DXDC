@@ -501,6 +501,7 @@ namespace DXDC
 
         public string USite { get; set; } = "www.avsox.com";
         public string CSite { get; set; } = "www.avmoo.com";
+        public string BSite { get; set; } = "www.javbus.com";
 
         //public HttpClient GlobalHttpClient { get; set; }
         //public CancellationTokenSource GlobalCTS { get; set; } = new CancellationTokenSource();
@@ -515,6 +516,7 @@ namespace DXDC
 
             CSite = "avio.pw"; //http://jav.tellme.pw
             USite = "avso.pw"; //http://javu.tellme.pw
+            BSite = "www.javbus.com";
 
             string _strapppathtemp = Path.Combine(Path.GetTempPath(), "__xdatatemp");
             if (Directory.Exists(_strapppathtemp)) XGlobal.ForceDeleteDirectory(new DirectoryInfo(_strapppathtemp));
@@ -530,6 +532,7 @@ namespace DXDC
         {
             CSite = "avio.pw"; //http://jav.tellme.pw
             USite = "avso.pw"; //http://javu.tellme.pw
+            BSite = "www.javbus.com";
         }
 
         public StarInfo GetStarbyUID(Guid uid)

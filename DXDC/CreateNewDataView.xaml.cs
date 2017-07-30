@@ -35,11 +35,13 @@ namespace DXDC
 
         private DirectoryInfo CurrentSamplesLocation;
         private bool IsReadyProcess = false;
+        private string SiteKey;
 
         public CreateNewDataView()
         {
             InitializeComponent();
             InitializeCommand();
+            XGlobal.CurrentContext.BSite = "www.javbus.com";
         }
 
         public RoutedCommand Command_SelectResult = new RoutedCommand("SelectResult", typeof(MainWindow));
@@ -155,8 +157,9 @@ namespace DXDC
                 txt_Keywords.Focus();
                 return;
             }
-
-            hnode = hnode.SelectSingleNode("/html/body/div[2]");
+            //TODO
+            if (SiteKey == "U" || SiteKey == "C") hnode = hnode.SelectSingleNode("/html/body/div[2]");
+            if (SiteKey == "B") hnode = hnode.SelectSingleNode("/html/body/div[@class='container']");
             foreach (HtmlNode _txt_node in hnode.SelectNodes(".//text()"))
                 if (!Regex.IsMatch(_txt_node.InnerText, @"\S", RegexOptions.Singleline)) _txt_node.Remove();
 
@@ -217,8 +220,10 @@ namespace DXDC
 
         private void FindCmd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.Parameter.ToString() == "C") Func_FindDB(XGlobal.CurrentContext.CSite);
-            if (e.Parameter.ToString() == "U") Func_FindDB(XGlobal.CurrentContext.USite);
+            SiteKey = e.Parameter.ToString();
+            if (SiteKey == "C") Func_FindDB(XGlobal.CurrentContext.CSite);
+            if (SiteKey == "U") Func_FindDB(XGlobal.CurrentContext.USite);
+            if (SiteKey == "B") Func_FindDB(XGlobal.CurrentContext.BSite);
         }
 
         public List<object> Object_SearchResultList = new List<object>();
@@ -247,7 +252,9 @@ namespace DXDC
             CurrentHtmlDocument.LoadHtml(streamresult);
             HtmlNode hnode = CurrentHtmlDocument.DocumentNode;
 
-            HtmlNode _errornode = hnode.SelectSingleNode("//div[@class='alert alert-block alert-error']");
+            HtmlNode _errornode = null;
+            if (SiteKey == "U" || SiteKey == "C") _errornode = hnode.SelectSingleNode("//div[@class='alert alert-block alert-error']");
+            if (SiteKey == "B") _errornode = hnode.SelectSingleNode("//div[@class='alert alert-danger alert-page']");
             if (_errornode != null)
             {
                 MessageBox.Show(_errornode.InnerText, "Key Words Mismatch");
@@ -257,8 +264,6 @@ namespace DXDC
 
             list_ProcessInformation.SelectedIndex = list_ProcessInformation.Items.Add($"從 {SPKEY.ToUpper()} 返回 {txt_Keywords.Text} 相關影片...");
 
-            //搜索結果列表
-            //frmSelectMovies fsm = new frmSelectMovies(txtKeywords.Text, hdoc, uri_search, SPKEY);
             #region 讀取搜索結果
             HtmlNode errornode = CurrentHtmlDocument.DocumentNode.SelectSingleNode("//div[@class='container-fluid']/div[@class='alert alert-danger']");
             if (errornode != null)
@@ -487,7 +492,10 @@ namespace DXDC
                     var streamstarresult = await XGlobal.FnReadWebData(star.OfficialWeb_EN);
                     HtmlDocument hstardoc = new HtmlDocument();
                     hstardoc.LoadHtml(streamstarresult);
-                    star.EName = name_en = hstardoc.DocumentNode.SelectSingleNode("//div[@id='waterfall']//span[@class='pb-10']").InnerText.Trim();
+                    if (SiteKey == "U" || SiteKey == "C")
+                        star.EName = name_en = hstardoc.DocumentNode.SelectSingleNode("//div[@id='waterfall']//span[@class='pb-10']").InnerText.Trim();
+                    if (SiteKey == "B")
+                        star.EName = name_en = hstardoc.DocumentNode.SelectSingleNode("//div[@id='waterfall']//span[@class='pb10']").InnerText.Trim();
                     //Read Avator to Stream                    
                     list_ProcessInformation.SelectedIndex = list_ProcessInformation.Items.Add($"Create star directory [{star.JName}] (TEMP)...");
 

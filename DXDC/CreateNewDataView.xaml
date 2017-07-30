@@ -42,6 +42,7 @@
                     <dxe:ComboBoxEdit x:Name="txt_Keywords" dxlc:DockLayoutControl.Dock="Left" Width="198" />
                     <dx:SimpleButton x:Name="bn_SearchMOO" Command="ApplicationCommands.Find" CommandParameter="C" Width="50" dxlc:DockLayoutControl.Dock="Left" Content="MOO" />
                     <dx:SimpleButton x:Name="bn_SearchSOX" Command="ApplicationCommands.Find" CommandParameter="U" Width="50" dxlc:DockLayoutControl.Dock="Left" Content="SOX" />
+                    <dx:SimpleButton x:Name="bn_SearchBUS" Command="ApplicationCommands.Find" CommandParameter="B" Width="50" dxlc:DockLayoutControl.Dock="Left" Content="BUS" />
                     <dx:SimpleButton x:Name="bn_Manual" Command="ApplicationCommands.Find" CommandParameter="M" Width="70" dxlc:DockLayoutControl.Dock="Left" Content="MANUAL" />
                     <dx:SimpleButton x:Name="bn_Process" Width="100" dxlc:DockLayoutControl.Dock="Right" Content="PROCESS" FontWeight="Bold" Foreground="Teal" />
                 </dxlc:DockLayoutControl>
